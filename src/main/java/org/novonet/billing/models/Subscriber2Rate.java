@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "subscriber_to_rate")
+@Table(name = "subscribers_to_rates")
 public class Subscriber2Rate {
 
     @EmbeddedId

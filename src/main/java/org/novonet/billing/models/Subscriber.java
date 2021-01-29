@@ -13,10 +13,13 @@ public class Subscriber {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(length = 30)
     private String surname, name, patronymic;
 
+    @Column(length = 25)
     private String city;
 
+    @Column(length = 50)
     private String street;
 
     private Integer house;

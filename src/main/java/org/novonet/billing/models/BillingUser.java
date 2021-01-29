@@ -3,6 +3,7 @@ package org.novonet.billing.models;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "billing_users")
 public class BillingUser {
 
     @Id
@@ -13,9 +14,7 @@ public class BillingUser {
 
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "enum")
-    private UserType status;
+    private String privilege;
 
     public Long getId() {
         return id;
@@ -41,11 +40,11 @@ public class BillingUser {
         this.password = password;
     }
 
-    public UserType getStatus() {
-        return status;
+    public String getPrivilege() {
+        return privilege;
     }
 
-    public void setStatus(UserType status) {
-        this.status = status;
+    public void setPrivilege(String privilege) {
+        this.privilege = privilege;
     }
 }

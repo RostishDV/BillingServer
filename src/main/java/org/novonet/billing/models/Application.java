@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "applications")
 public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,10 +13,10 @@ public class Application {
     @Column(name = "subscriber_id")
     private long subscriberId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "enum")
-    private StatusType status;
+    @Column(length = 10)
+    private String status;
 
+    @Column(length = 50)
     private String title;
 
     private String description;
@@ -39,11 +40,11 @@ public class Application {
         this.id = id;
     }
 
-    public StatusType getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(StatusType status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
