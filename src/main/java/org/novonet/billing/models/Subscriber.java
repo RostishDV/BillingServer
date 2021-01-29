@@ -45,6 +45,7 @@ public class Subscriber {
         this.building = building;
         this.apartment = apartment;
         this.phone = phone;
+        balance = 0.;
     }
 
     public Long getId() {
