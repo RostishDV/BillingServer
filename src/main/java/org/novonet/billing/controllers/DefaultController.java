@@ -19,10 +19,4 @@ public class DefaultController {
         model.addAttribute("name", name);
         return "greeting";
     }
-
-    @GetMapping("/subscribers")
-    public ResponseEntity getSubscribers(){
-        return ResponseEntity.status(HttpStatus.OK).body(subscriberRepository.findAll());
-    }
-
 }
