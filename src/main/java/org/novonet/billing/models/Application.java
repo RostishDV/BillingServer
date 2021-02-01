@@ -29,6 +29,16 @@ public class Application {
     @JoinColumn(name = "id")
     private Subscriber subscriber;
 
+    public Application() {
+    }
+
+    public Application(long subscriberId, String status, String title, String description) {
+        this.subscriberId = subscriberId;
+        this.status = status;
+        this.title = title;
+        this.description = description;
+    }
+
     public long getSubscriberId() {
         return subscriberId;
     }
