@@ -24,11 +24,11 @@ public class Subscriber2Service {
     @Column(name = "subscription_date")
     private Date subscriptionDate;
 
-    public Subscriber2ServiceId getSubscriber2serviceId() {
+    public Subscriber2ServiceId getSubscriber2ServiceId() {
         return subscriber2serviceId;
     }
 
-    public void setSubscriber2serviceId(Subscriber2ServiceId subscriber2serviceId) {
+    public void setSubscriber2ServiceId(Subscriber2ServiceId subscriber2serviceId) {
         this.subscriber2serviceId = subscriber2serviceId;
     }
 
