@@ -1,9 +1,7 @@
 package org.novonet.billing.models;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "subscribers")
@@ -31,6 +29,31 @@ public class Subscriber {
     private Long phone;
 
     private Double balance;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "subscribers_to_rates",
+            joinColumns = {@JoinColumn(name = "subscriber_id")},
+            inverseJoinColumns = {@JoinColumn(name = "rate_id")}
+    )
+    private List<Rate> rates;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "subscribers_to_services",
+            joinColumns = {@JoinColumn(name = "subscriber_id")},
+            inverseJoinColumns = {@JoinColumn(name = "service_id")}
+    )
+    private List<Service> services;
+
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Application> applications;
+
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Debit> debits;
+
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Payment> payments;
+
+
 
     public Subscriber() {
     }
@@ -134,5 +157,57 @@ public class Subscriber {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public List<Rate> getRate() {
+        return rates;
+    }
+
+    public void setRate(List<Rate> rates) {
+        this.rates = rates;
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setService(List<Service> services) {
+        this.services = services;
+    }
+
+    public List<Rate> getRates() {
+        return rates;
+    }
+
+    public void setRates(List<Rate> rates) {
+        this.rates = rates;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
+    }
+
+    public List<Debit> getDebits() {
+        return debits;
+    }
+
+    public void setDebits(List<Debit> debits) {
+        this.debits = debits;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 }

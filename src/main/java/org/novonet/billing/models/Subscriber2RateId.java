@@ -3,6 +3,7 @@ package org.novonet.billing.models;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Date;
 
 @Embeddable
 public class Subscriber2RateId implements Serializable {
@@ -12,6 +13,14 @@ public class Subscriber2RateId implements Serializable {
 
     @Column(name = "rate_id")
     private long rateId;
+
+    public Subscriber2RateId() {
+    }
+
+    public Subscriber2RateId(long subscriberId, long rateId) {
+        this.subscriberId = subscriberId;
+        this.rateId = rateId;
+    }
 
     public long getSubscriberId() {
         return subscriberId;

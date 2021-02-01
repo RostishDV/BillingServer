@@ -1,9 +1,6 @@
 package org.novonet.billing.models;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -12,6 +9,14 @@ public class Subscriber2Rate {
 
     @EmbeddedId
     private Subscriber2RateId subscriber2RateId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(insertable = false, updatable = false)
+    private Subscriber subscriber;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(insertable = false, updatable = false)
+    private Rate rate;
 
     @Column(name = "subscription_date")
     private Date subscriptionDate;
@@ -22,6 +27,22 @@ public class Subscriber2Rate {
 
     public void setSubscriber2RateId(Subscriber2RateId subscriber2RateId) {
         this.subscriber2RateId = subscriber2RateId;
+    }
+
+    public Subscriber getSubscriber() {
+        return subscriber;
+    }
+
+    public void setSubscriber(Subscriber subscriber) {
+        this.subscriber = subscriber;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
+    public void setRate(Rate rate) {
+        this.rate = rate;
     }
 
     public Date getSubscriptionDate() {

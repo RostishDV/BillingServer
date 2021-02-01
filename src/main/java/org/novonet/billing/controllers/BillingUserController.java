@@ -16,13 +16,13 @@ public class BillingUserController {
     private BillingUserRepository billingUserRepository;
 
     @GetMapping("/billingUsers/")
-    private ResponseEntity getAllRates(){
+    private ResponseEntity getAllBillingUsers(){
         Iterable<BillingUser> billingUsers = billingUserRepository.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(billingUsers);
     }
 
     @GetMapping("/billingUsers/{id}")
-    private  ResponseEntity getRateById(@PathVariable long id){
+    private  ResponseEntity getBillingUserById(@PathVariable long id){
         Optional<BillingUser> billingUsers = billingUserRepository.findById(id);
         if (billingUsers.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(billingUsers);
@@ -31,7 +31,7 @@ public class BillingUserController {
     }
 
     @PostMapping("/billingUsers/")
-    private ResponseEntity addNewRate(@RequestParam String name,
+    private ResponseEntity addNewBillingUser(@RequestParam String name,
                                       @RequestParam String password,
                                       @RequestParam String privilege){
         try {
@@ -47,8 +47,8 @@ public class BillingUserController {
     }
 
 
-    @DeleteMapping("/services/{id}")
-    public ResponseEntity deleteSubscriberById(@PathVariable long id){
+    @DeleteMapping("/billingUsers/{id}")
+    public ResponseEntity deleteBillingUserById(@PathVariable long id){
         Optional<BillingUser> billingUser = billingUserRepository.findById(id);
         if (billingUser.isPresent()) {
             billingUserRepository.deleteById(id);
