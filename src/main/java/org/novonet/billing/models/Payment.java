@@ -23,6 +23,15 @@ public class Payment {
     @Column(name = "payment_date")
     private Date paymentDate;
 
+    public Payment() {
+    }
+
+    public Payment(long subscriberId, double receivedMoney, double previousBalance) {
+        this.subscriberId = subscriberId;
+        this.receivedMoney = receivedMoney;
+        this.previousBalance = previousBalance;
+    }
+
     public Long getId() {
         return id;
     }

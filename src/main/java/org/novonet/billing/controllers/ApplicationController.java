@@ -45,8 +45,6 @@ public class ApplicationController {
             ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
         }
-
-
     }
 
     @DeleteMapping("/applications/{id}")

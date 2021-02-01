@@ -23,6 +23,15 @@ public class Debit {
     @Column(name = "debit_date")
     private Date debitDate;
 
+    public Debit() {
+    }
+
+    public Debit(long subscriberId, double debitedMoney, double previousBalance) {
+        this.subscriberId = subscriberId;
+        this.debitedMoney = debitedMoney;
+        this.previousBalance = previousBalance;
+    }
+
     public Long getId() {
         return id;
     }
