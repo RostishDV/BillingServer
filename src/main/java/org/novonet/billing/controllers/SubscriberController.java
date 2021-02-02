@@ -52,7 +52,7 @@ public class SubscriberController {
 
     }
 
-    @DeleteMapping("/subscriber/{id}")
+    @RequestMapping(path = "/subscribers/{id}",method = RequestMethod.DELETE)
     public ResponseEntity deleteSubscriberById(@PathVariable long id){
         Optional<Subscriber> subscriber = subscriberRepository.findById(id);
         if (subscriber.isPresent()) {

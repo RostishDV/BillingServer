@@ -23,6 +23,10 @@ public class Payment {
     @Column(name = "payment_date")
     private Date paymentDate;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    private Subscriber subscriber;
+
     public Payment() {
     }
 
@@ -70,5 +74,13 @@ public class Payment {
 
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    public Subscriber getSubscriber() {
+        return subscriber;
+    }
+
+    public void setSubscriber(Subscriber subscriber) {
+        this.subscriber = subscriber;
     }
 }

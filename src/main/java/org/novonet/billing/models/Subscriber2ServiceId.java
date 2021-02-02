@@ -13,6 +13,9 @@ public class Subscriber2ServiceId implements Serializable {
     @Column(name = "service_id")
     private long serviceId;
 
+    public Subscriber2ServiceId() {
+    }
+
     public Subscriber2ServiceId(long subscriberId, long serviceId) {
         this.subscriberId = subscriberId;
         this.serviceId = serviceId;

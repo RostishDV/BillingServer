@@ -1,7 +1,9 @@
 package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Application;
+import org.novonet.billing.models.Subscriber;
 import org.novonet.billing.repo.ApplicationRepository;
+import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import java.util.Optional;
 public class ApplicationController {
     @Autowired
     private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private SubscriberRepository subscriberRepository;
 
     @GetMapping("/applications/")
     private ResponseEntity getAllSubscribers(){
@@ -36,15 +41,16 @@ public class ApplicationController {
                                              @RequestParam String title,
                                              @RequestParam String description
                                              ){
-        try {
+        Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriberId);
+        if (optionalSubscriber.isPresent()){
+            Subscriber subscriber = optionalSubscriber.get();
             Application application = new Application(subscriberId, status,
                     title, description);
-            applicationRepository.save(application);
+            subscriber.addApplication(application);
+            subscriberRepository.save(subscriber);
             return ResponseEntity.status(HttpStatus.OK).body(application.getId());
-        } catch (Exception ex){
-            ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
         }
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
     }
 
     @DeleteMapping("/applications/{id}")

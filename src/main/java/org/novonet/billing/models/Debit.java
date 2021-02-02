@@ -23,6 +23,10 @@ public class Debit {
     @Column(name = "debit_date")
     private Date debitDate;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    private Subscriber subscriber;
+
     public Debit() {
     }
 
@@ -70,5 +74,13 @@ public class Debit {
 
     public void setDebitDate(Date debitDate) {
         this.debitDate = debitDate;
+    }
+
+    public Subscriber getSubscriber() {
+        return subscriber;
+    }
+
+    public void setSubscriber(Subscriber subscriber) {
+        this.subscriber = subscriber;
     }
 }

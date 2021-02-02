@@ -33,8 +33,6 @@ public class Subscriber2ServiceController {
         Subscriber2ServiceId subscriber2ServiceId = new Subscriber2ServiceId(
                 subscriberId, serviceId
         );
-
-
         Optional<Subscriber2Service> subscriber2Service = subscriber2ServiceRepository
                 .findById(subscriber2ServiceId);
         if (subscriber2Service.isPresent()){
@@ -61,13 +59,13 @@ public class Subscriber2ServiceController {
     }
 
 
-    @DeleteMapping("/subscriber2rates/{id}")
+    @DeleteMapping("/subscriber2rates/{subscriberId} {rateId}")
     public ResponseEntity deleteSubscriberById(@PathVariable long subscriberId,
                                                @PathVariable long rateId){
         Subscriber2ServiceId subscriber2RateId =
                 new Subscriber2ServiceId(subscriberId, rateId);
-        Optional<Subscriber2Service> subscriber2Service = subscriber2ServiceRepository
-                .findById(subscriber2RateId);
+        Optional<Subscriber2Service> subscriber2Service = subscriber2ServiceRepository.
+                findById(subscriber2RateId);
         if (subscriber2Service.isPresent()) {
             subscriber2ServiceRepository.deleteById(subscriber2RateId);
             return ResponseEntity.status(HttpStatus.OK).body(subscriber2Service);

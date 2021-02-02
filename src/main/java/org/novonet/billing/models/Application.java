@@ -1,6 +1,7 @@
 package org.novonet.billing.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -26,7 +27,7 @@ public class Application {
 
     //may be didn't work
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id", insertable = false, updatable = false)
     private Subscriber subscriber;
 
     public Application() {
@@ -86,4 +87,14 @@ public class Application {
     public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
     }
+
+    public Subscriber getSubscriber() {
+        return subscriber;
+    }
+
+    public void setSubscriber(Subscriber subscriber) {
+        this.subscriber = subscriber;
+    }
+
+
 }
