@@ -9,10 +9,10 @@ import java.util.Date;
 public class Subscriber2RateId implements Serializable {
 
     @Column(name = "subscriber_id")
-    private long subscriberId;
+    private Long subscriberId;
 
     @Column(name = "rate_id")
-    private long rateId;
+    private Long rateId;
 
     public Subscriber2RateId() {
     }
@@ -40,11 +40,21 @@ public class Subscriber2RateId implements Serializable {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        long code = subscriberId.hashCode() + rateId.hashCode();
+        return (int) code;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (obj == this){
+            return true;
+        }
+        if (!(obj instanceof Subscriber2RateId)){
+            return false;
+        }
+        Subscriber2RateId other = (Subscriber2RateId) obj;
+        boolean subscriberIdEquals = this.subscriberId.equals(other.subscriberId);
+        boolean rateIdEquals = this.rateId.equals((other.rateId));
+        return subscriberIdEquals && rateIdEquals;
     }
 }

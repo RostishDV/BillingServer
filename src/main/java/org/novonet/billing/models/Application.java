@@ -25,7 +25,6 @@ public class Application {
     @Column(name = "publication_date")
     private Date publicationDate;
 
-    //may be didn't work
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id", insertable = false, updatable = false)
     private Subscriber subscriber;

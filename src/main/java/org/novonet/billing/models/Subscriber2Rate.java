@@ -14,10 +14,6 @@ public class Subscriber2Rate {
     @JoinColumn(insertable = false, updatable = false)
     private Subscriber subscriber;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(insertable = false, updatable = false)
-    private Rate rate;
-
     @Column(name = "subscription_date")
     private Date subscriptionDate;
 
@@ -35,14 +31,6 @@ public class Subscriber2Rate {
 
     public void setSubscriber(Subscriber subscriber) {
         this.subscriber = subscriber;
-    }
-
-    public Rate getRate() {
-        return rate;
-    }
-
-    public void setRate(Rate rate) {
-        this.rate = rate;
     }
 
     public Date getSubscriptionDate() {
