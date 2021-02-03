@@ -22,19 +22,19 @@ public class Subscriber2RateId implements Serializable {
         this.rateId = rateId;
     }
 
-    public long getSubscriberId() {
+    public Long getSubscriberId() {
         return subscriberId;
     }
 
-    public void setSubscriberId(long subscriberId) {
+    public void setSubscriberId(Long subscriberId) {
         this.subscriberId = subscriberId;
     }
 
-    public long getRateId() {
+    public Long getRateId() {
         return rateId;
     }
 
-    public void setRateId(long rateId) {
+    public void setRateId(Long rateId) {
         this.rateId = rateId;
     }
 

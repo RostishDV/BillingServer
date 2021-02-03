@@ -8,10 +8,10 @@ import java.io.Serializable;
 public class Subscriber2ServiceId implements Serializable {
 
     @Column(name = "subscriber_id")
-    private long subscriberId;
+    private Long subscriberId;
 
     @Column(name = "service_id")
-    private long serviceId;
+    private Long serviceId;
 
     public Subscriber2ServiceId() {
     }
@@ -21,29 +21,39 @@ public class Subscriber2ServiceId implements Serializable {
         this.serviceId = serviceId;
     }
 
-    public long getSubscriberId() {
+    public Long getSubscriberId() {
         return subscriberId;
     }
 
-    public void setSubscriberId(long subscriberId) {
+    public void setSubscriberId(Long subscriberId) {
         this.subscriberId = subscriberId;
     }
 
-    public long getServiceId() {
+    public Long getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(long serviceId) {
+    public void setServiceId(Long serviceId) {
         this.serviceId = serviceId;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        long code = subscriberId.hashCode() + serviceId.hashCode();
+        return (int) code;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (this == obj){
+            return true;
+        }
+        if (!(obj instanceof Subscriber2ServiceId)){
+            return false;
+        }
+        Subscriber2ServiceId other = (Subscriber2ServiceId) obj;
+        boolean subscriberIdEquals = this.subscriberId.equals(other.subscriberId);
+        boolean serviceIdEquals = this.serviceId.equals(other.serviceId);
+        return subscriberIdEquals && serviceIdEquals;
     }
 }
