@@ -12,9 +12,6 @@ import java.util.Optional;
 
 @Controller
 public class PaymentController {
-    @Autowired
-    private PaymentRepository paymentRepository;
-
     @GetMapping("/payments/")
     private ResponseEntity getAllSubscribers(){
         Iterable<Payment> payments = paymentRepository.findAll();

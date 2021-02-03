@@ -2,8 +2,10 @@ package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Application;
 import org.novonet.billing.models.Debit;
+import org.novonet.billing.models.Subscriber;
 import org.novonet.billing.repo.ApplicationRepository;
 import org.novonet.billing.repo.DebitRepository;
+import org.novonet.billing.repo.RepositoryPool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +20,14 @@ public class DebitController {
     private DebitRepository debitRepository;
 
     @GetMapping("/debits/")
-    private ResponseEntity getAllSubscribers(){
+    private ResponseEntity getAllDebits(){
         Iterable<Debit> debits = debitRepository.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(debits);
     }
 
-    @GetMapping("/debits/{id}")
-    private  ResponseEntity getSubscriberById(@PathVariable long id){
+    @GetMapping("/debits/{subscriberId}")
+    private  ResponseEntity getDebitById(@PathVariable long id){
+
         Optional<Debit> debit = debitRepository.findById(id);
         if (debit.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(debit);
@@ -32,8 +35,10 @@ public class DebitController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
     }
 
+    @GetMapping("debits/")
+
     @PostMapping("/debits/")
-    private ResponseEntity addNewApplication(@RequestParam long subscriberId,
+    private ResponseEntity addNewDebit(@RequestParam long subscriberId,
                                              @RequestParam double debitedMoney,
                                              @RequestParam double previousBalance
     ){
@@ -45,12 +50,10 @@ public class DebitController {
             ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
         }
-
-
     }
 
     @DeleteMapping("/debits/{id}")
-    public ResponseEntity deleteApplicationById(@PathVariable long id){
+    public ResponseEntity deleteDebitById(@PathVariable long id){
         Optional<Debit> debit = debitRepository.findById(id);
         if (debit.isPresent()) {
             debitRepository.deleteById(id);

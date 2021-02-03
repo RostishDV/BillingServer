@@ -12,9 +12,6 @@ import java.util.Optional;
 
 @Controller
 public class BillingUserController {
-    @Autowired
-    private BillingUserRepository billingUserRepository;
-
     @GetMapping("/billingUsers/")
     private ResponseEntity getAllBillingUsers(){
         Iterable<BillingUser> billingUsers = billingUserRepository.findAll();

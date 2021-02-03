@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 public class RateController {
-    @Autowired
-    private RateRepository rateRepository;
-
     @GetMapping("/rates")
     private ResponseEntity getAllRates(){
         Iterable<Rate> rates = rateRepository.findAll();

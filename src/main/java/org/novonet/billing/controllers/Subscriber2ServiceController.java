@@ -14,9 +14,6 @@ import java.util.Optional;
 
 @Controller
 public class Subscriber2ServiceController {
-    @Autowired
-    private Subscriber2ServiceRepository subscriber2ServiceRepository;
-
 
 //    @GetMapping("/subscriber2service/{subscriberId}")
 //    private ResponseEntity getSubscriber2Service(@PathVariable long subscriberId){

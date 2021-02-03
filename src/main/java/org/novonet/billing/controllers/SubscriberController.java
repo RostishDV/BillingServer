@@ -1,6 +1,7 @@
 package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Subscriber;
+import org.novonet.billing.repo.RepositoryPool;
 import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,8 +13,6 @@ import java.util.Optional;
 
 @Controller
 public class SubscriberController {
-    @Autowired
-    private SubscriberRepository subscriberRepository;
 
     @GetMapping("/subscribers/")
     private ResponseEntity getAllSubscribers(){

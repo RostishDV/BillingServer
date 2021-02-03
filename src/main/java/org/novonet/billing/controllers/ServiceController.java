@@ -12,10 +12,6 @@ import java.util.Optional;
 
 @Controller
 public class ServiceController {
-
-    @Autowired
-    private ServiceRepository serviceRepository;
-
     @GetMapping("/services")
     private ResponseEntity getAllRates(){
         Iterable<Service> services = serviceRepository.findAll();

@@ -25,9 +25,10 @@ public class Application {
     @Column(name = "publication_date")
     private Date publicationDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", insertable = false, updatable = false)
-    private Subscriber subscriber;
+//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id", referencedColumnName = "id",
+//            insertable = false, updatable = false)
+//    private Subscriber subscriber;
 
     public Application() {
     }
@@ -37,6 +38,7 @@ public class Application {
         this.status = status;
         this.title = title;
         this.description = description;
+        publicationDate = new Date();
     }
 
     public long getSubscriberId() {
@@ -87,13 +89,13 @@ public class Application {
         this.publicationDate = publicationDate;
     }
 
-    public Subscriber getSubscriber() {
-        return subscriber;
-    }
-
-    public void setSubscriber(Subscriber subscriber) {
-        this.subscriber = subscriber;
-    }
+//    public Subscriber getSubscriber() {
+//        return subscriber;
+//    }
+//
+//    public void setSubscriber(Subscriber subscriber) {
+//        this.subscriber = subscriber;
+//    }
 
     @Override
     public int hashCode() {

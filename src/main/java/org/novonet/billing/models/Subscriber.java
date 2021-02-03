@@ -44,13 +44,16 @@ public class Subscriber {
     )
     private List<Service> services;
 
-    @OneToMany(mappedBy = "subscriberId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Application> applications;
+//    @OneToMany(mappedBy = "subscriber", targetEntity = Application.class,
+//            cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+//    private List<Application> applications;
 
-    @OneToMany(mappedBy = "subscriberId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "subscriber",targetEntity = Debit.class,
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Debit> debits;
 
-    @OneToMany(mappedBy = "subscriberId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "subscriber", targetEntity = Payment.class,
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Payment> payments;
 
 
@@ -187,21 +190,21 @@ public class Subscriber {
         this.services = services;
     }
 
-    public void addApplication(Application application){
-        applications.add(application);
-    }
-
-    public void removeApplication(Application application){
-        applications.remove(application);
-    }
-
-    public List<Application> getApplications() {
-        return applications;
-    }
-
-    public void setApplications(List<Application> applications) {
-        this.applications = applications;
-    }
+//    public void addApplication(Application application){
+//        applications.add(application);
+//    }
+//
+//    public void removeApplication(Application application){
+//        applications.remove(application);
+//    }
+//
+//    public List<Application> getApplications() {
+//        return applications;
+//    }
+//
+//    public void setApplications(List<Application> applications) {
+//        this.applications = applications;
+//    }
 
     public void addDebit(Debit debit){
         debits.add(debit);

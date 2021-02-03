@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 public class Subscriber2RateController {
-    @Autowired
-    private Subscriber2RateRepository subscriber2RateRepository;
-    private SubscriberRepository subscriberRepository;
-
 //    @GetMapping("/subscriber2rates/{subscriberId}")
 //    private ResponseEntity getSubscriber2Rates(@PathVariable long subscriberId){
 //        Optional<Subscriber> subscriber = subscriberRepository.findById(subscriberId);
