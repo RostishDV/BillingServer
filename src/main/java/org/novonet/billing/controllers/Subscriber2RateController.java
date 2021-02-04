@@ -4,6 +4,7 @@ import org.novonet.billing.models.Subscriber2Rate;
 import org.novonet.billing.models.Subscriber2RateId;
 import org.novonet.billing.repo.Subscriber2RateRepository;
 import org.novonet.billing.repo.SubscriberRepository;
+import org.novonet.billing.services.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 public class Subscriber2RateController {
+    private final Subscriber2RateRepository subscriber2RateRepository = RepositoryService.getSubscriber2RateRepository();
+
 //    @GetMapping("/subscriber2rates/{subscriberId}")
 //    private ResponseEntity getSubscriber2Rates(@PathVariable long subscriberId){
 //        Optional<Subscriber> subscriber = subscriberRepository.findById(subscriberId);

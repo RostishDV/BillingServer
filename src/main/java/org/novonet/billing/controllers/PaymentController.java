@@ -2,6 +2,7 @@ package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Payment;
 import org.novonet.billing.repo.PaymentRepository;
+import org.novonet.billing.services.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import java.util.Optional;
 
 @Controller
 public class PaymentController {
+    private final PaymentRepository paymentRepository = RepositoryService.getPaymentRepository();
+
     @GetMapping("/payments/")
     private ResponseEntity getAllSubscribers(){
         Iterable<Payment> payments = paymentRepository.findAll();

@@ -2,6 +2,7 @@ package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.BillingUser;
 import org.novonet.billing.repo.BillingUserRepository;
+import org.novonet.billing.services.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import java.util.Optional;
 
 @Controller
 public class BillingUserController {
+    private final BillingUserRepository billingUserRepository = RepositoryService.getBillingUserRepository();
+
     @GetMapping("/billingUsers/")
     private ResponseEntity getAllBillingUsers(){
         Iterable<BillingUser> billingUsers = billingUserRepository.findAll();
