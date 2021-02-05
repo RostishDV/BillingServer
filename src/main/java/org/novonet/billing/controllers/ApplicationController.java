@@ -40,7 +40,7 @@ public class ApplicationController {
                                              @RequestParam String status,
                                              @RequestParam String title,
                                              @RequestParam String description
-                                             ){
+    ){
         Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriberId);
         if (optionalSubscriber.isPresent()){
             Subscriber subscriber = optionalSubscriber.get();

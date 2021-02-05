@@ -2,8 +2,10 @@ package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Application;
 import org.novonet.billing.models.Debit;
+import org.novonet.billing.models.Subscriber;
 import org.novonet.billing.repo.ApplicationRepository;
 import org.novonet.billing.repo.DebitRepository;
+import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ import java.util.Optional;
 public class DebitController {
     @Autowired
     private DebitRepository debitRepository;
+
+    @Autowired
+    private SubscriberRepository subscriberRepository;
 
     @GetMapping("/debits/")
     private ResponseEntity getAllSubscribers(){
@@ -33,20 +38,21 @@ public class DebitController {
     }
 
     @PostMapping("/debits/")
-    private ResponseEntity addNewApplication(@RequestParam long subscriberId,
-                                             @RequestParam double debitedMoney,
-                                             @RequestParam double previousBalance
+    private ResponseEntity addNewDebit(@RequestParam long subscriberId,
+                                             @RequestParam double debitedMoney
     ){
-        try {
-            Debit debit = new Debit(subscriberId, debitedMoney, previousBalance);
-            debitRepository.save(debit);
-            return ResponseEntity.status(HttpStatus.OK).body(debit.getId());
-        } catch (Exception ex){
-            ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+        Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriberId);
+        if (optionalSubscriber.isPresent()){
+            Subscriber subscriber = optionalSubscriber.get();
+            Debit debit = new Debit(subscriber.getId(), debitedMoney, subscriber.getBalance());
+            subscriber.setBalance(subscriber.getBalance() - debitedMoney);
+            subscriber.addDebit(debit);
+            subscriberRepository.save(subscriber);
+            return ResponseEntity.status(HttpStatus.OK).body(debit);
         }
-
-
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(subscriberId);
+        }
     }
 
     @DeleteMapping("/debits/{id}")

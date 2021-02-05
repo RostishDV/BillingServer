@@ -26,7 +26,7 @@ public class Application {
     private Date publicationDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "subscriber_id", insertable = false, updatable = false)
     private Subscriber subscriber;
 
     public Application() {
@@ -37,6 +37,7 @@ public class Application {
         this.status = status;
         this.title = title;
         this.description = description;
+        publicationDate = new Date();
     }
 
     public long getSubscriberId() {
