@@ -24,7 +24,7 @@ public class Payment {
     private Date paymentDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "subscriber_id", insertable = false, updatable = false)
     private Subscriber subscriber;
 
     public Payment() {

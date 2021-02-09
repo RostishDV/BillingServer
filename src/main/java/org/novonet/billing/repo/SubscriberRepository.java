@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubscriberRepository extends CrudRepository<Subscriber, Long> {
-    @Query("select s from subscribers s where s.city = :city")
-    public Iterable<Subscriber> findByCity(@Param("city") String city);
+    @Query(value = "select s from subscribers s where s.city = :city", nativeQuery = true)
+    Iterable<Subscriber> findByCity(@Param("city") String city);
 }

@@ -25,10 +25,10 @@ public class Application {
     @Column(name = "publication_date")
     private Date publicationDate;
 
-//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id", referencedColumnName = "id",
-//            insertable = false, updatable = false)
-//    private Subscriber subscriber;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "subscriber_id", referencedColumnName = "id",
+            insertable = false, updatable = false)
+    private Subscriber subscriber;
 
     public Application() {
     }

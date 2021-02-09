@@ -2,7 +2,7 @@ package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Subscriber;
 import org.novonet.billing.repo.SubscriberRepository;
-import org.novonet.billing.services.RepositoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,8 @@ import java.util.Optional;
 @Controller
 public class SubscriberController {
 
-    private final SubscriberRepository subscriberRepository = RepositoryService.getSubscriberRepository();
+    @Autowired
+    private SubscriberRepository subscriberRepository;
 
     @GetMapping("/subscribers/")
     private ResponseEntity getAllSubscribers(){
@@ -41,6 +42,15 @@ public class SubscriberController {
                                             @RequestParam() Integer apartment,
                                             @RequestParam() Long phone){
         try {
+            if (surname == null || name == null || patronymic == null){
+                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Type full naming data");
+            }
+            if (city == null || street == null || house == null || building == null || apartment == null){
+                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Type full address");
+            }
+            if (phone == null){
+                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Type contact phone");
+            }
             Subscriber subscriber = new Subscriber(surname, name, patronymic, city, street, house, building, apartment, phone);
             subscriberRepository.save(subscriber);
             return ResponseEntity.status(HttpStatus.OK).body(subscriber.getId());

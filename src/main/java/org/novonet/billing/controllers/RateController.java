@@ -2,17 +2,16 @@ package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Rate;
 import org.novonet.billing.repo.RateRepository;
-import org.novonet.billing.services.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 public class RateController {
-    private final RateRepository rateRepository = RepositoryService.getRateRepository();
+    @Autowired
+    private RateRepository rateRepository;
 
     @GetMapping("/rates")
     private ResponseEntity getAllRates(){

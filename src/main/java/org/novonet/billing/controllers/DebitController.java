@@ -2,7 +2,7 @@ package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Debit;
 import org.novonet.billing.repo.DebitRepository;
-import org.novonet.billing.services.RepositoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,8 @@ import java.util.Optional;
 
 @Controller
 public class DebitController {
-    private final DebitRepository debitRepository = RepositoryService.getDebitRepository();
+    @Autowired
+    private DebitRepository debitRepository;
 
     @GetMapping("/debits/")
     private ResponseEntity getAllDebits(){
@@ -29,8 +30,6 @@ public class DebitController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
     }
-
-    @GetMapping("debits/")
 
     @PostMapping("/debits/")
     private ResponseEntity addNewDebit(@RequestParam long subscriberId,
