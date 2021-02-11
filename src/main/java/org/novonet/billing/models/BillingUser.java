@@ -1,6 +1,7 @@
 package org.novonet.billing.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "billing_users")
@@ -10,11 +11,17 @@ public class BillingUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String username;
 
     private String password;
 
-    private String privilege;
+    //todo: нписать классы зависимостей и связей ролей к пользователям
+    //todo: нписать контроллер создания ролей доступный, пока что всем
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -24,12 +31,12 @@ public class BillingUser {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -40,11 +47,11 @@ public class BillingUser {
         this.password = password;
     }
 
-    public String getPrivilege() {
-        return privilege;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setPrivilege(String privilege) {
-        this.privilege = privilege;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

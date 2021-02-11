@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BillingUserRepository extends CrudRepository<BillingUser, Long> {
+    BillingUser findByUsername(String username);
 }
