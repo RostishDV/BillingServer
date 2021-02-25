@@ -35,23 +35,18 @@ public class RateController {
     }
 
 
-    //todo: rework this part for rate
-    @PostMapping("/debits/")
-    private ResponseEntity addNewDebit(@RequestParam long subscriberId,
-                                       @RequestParam double debitedMoney
-    ){
-        Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriberId);
-        if (optionalSubscriber.isPresent()){
-            Subscriber subscriber = optionalSubscriber.get();
-            Debit debit = new Debit(subscriber.getId(), debitedMoney, subscriber.getBalance());
-            subscriber.setBalance(subscriber.getBalance() - debitedMoney);
-            subscriber.addDebit(debit);
-            subscriberRepository.save(subscriber);
-            return ResponseEntity.status(HttpStatus.OK).body(debit);
+    @PostMapping("/rates/")
+    private ResponseEntity addNewRate(@RequestParam String name,
+                                      @RequestParam double price){
+        if (rateRepository.findByName(name).isPresent()){
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+                    .body("rate with name " + name + " already exist");
         }
-        else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(subscriberId);
-        }
+        Rate rate = new Rate();
+        rate.setName(name);
+        rate.setPrice(price);
+        rateRepository.save(rate);
+        return ResponseEntity.status(HttpStatus.OK).body(rate.getId());
     }
 
 
