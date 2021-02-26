@@ -2,7 +2,9 @@ package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Subscriber2Service;
 import org.novonet.billing.models.Subscriber2ServiceId;
+import org.novonet.billing.repo.ServiceRepository;
 import org.novonet.billing.repo.Subscriber2ServiceRepository;
+import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,12 @@ import java.util.Optional;
 public class Subscriber2ServiceController {
     @Autowired
     private Subscriber2ServiceRepository subscriber2ServiceRepository;
+
+    @Autowired
+    private SubscriberRepository subscriberRepository;
+
+    @Autowired
+    private ServiceRepository serviceRepository;
 
 
 //    @GetMapping("/subscriber2service/{subscriberId}")
@@ -41,29 +49,36 @@ public class Subscriber2ServiceController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(subscriber2ServiceId);
     }
 
-    @PostMapping("/subscriber2rates/")
-    private ResponseEntity addNewRate(@RequestParam long subscriberId,
-                                      @RequestParam long rateId){
+    @PostMapping("/subscriber2services/")
+    private ResponseEntity addNewService(@RequestParam long subscriberId,
+                                      @RequestParam long serviceId){
         try {
-            Subscriber2ServiceId subscriber2RateId = new Subscriber2ServiceId(
-                    subscriberId, rateId
+            if (
+                    subscriberRepository.findById(subscriberId).isEmpty() &&
+                            serviceRepository.findById(serviceId).isEmpty()
+            ) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("subscriber or service is not exist");
+            }
+
+            Subscriber2ServiceId subscriber2ServiceId = new Subscriber2ServiceId(
+                    subscriberId, serviceId
             );
-            Subscriber2Service subscriber2Service = new Subscriber2Service();
+            Subscriber2Service subscriber2Service = new Subscriber2Service(subscriber2ServiceId);
             subscriber2ServiceRepository.save(subscriber2Service);
             return ResponseEntity.status(HttpStatus.OK).body(subscriber2Service
                     .getSubscriber2ServiceId());
         } catch (Exception ex){
             ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("something went wrong");
         }
     }
 
 
-    @DeleteMapping("/subscriber2rates/{subscriberId} {rateId}")
-    public ResponseEntity deleteSubscriberById(@PathVariable long subscriberId,
-                                               @PathVariable long rateId){
-        Subscriber2ServiceId subscriber2RateId =
-                new Subscriber2ServiceId(subscriberId, rateId);
+    @DeleteMapping("/subscriber2services/{subscriberId} {rateId}")
+    public ResponseEntity deleteSubscriber2ServicesById(@PathVariable long subscriberId,
+                                                        @PathVariable long rateId){
+
+        Subscriber2ServiceId subscriber2RateId = new Subscriber2ServiceId(subscriberId, rateId);
         Optional<Subscriber2Service> subscriber2Service = subscriber2ServiceRepository.
                 findById(subscriber2RateId);
         if (subscriber2Service.isPresent()) {

@@ -35,6 +35,9 @@ public class ServiceController {
     private ResponseEntity addNewRate(@RequestParam String name,
                                       @RequestParam Double price){
         try {
+            if (serviceRepository.findByName(name).isPresent()){
+                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("this service already exist");
+            }
             Service service = new Service();
             service.setName(name);
             service.setPrice(price);
@@ -42,7 +45,7 @@ public class ServiceController {
             return ResponseEntity.status(HttpStatus.OK).body(service.getId());
         } catch (Exception ex){
             ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("something went wrong");
         }
     }
 

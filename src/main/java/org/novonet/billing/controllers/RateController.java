@@ -16,9 +16,6 @@ public class RateController {
     @Autowired
     private RateRepository rateRepository;
 
-    @Autowired
-    private SubscriberRepository subscriberRepository;
-
     @GetMapping("/rates")
     private ResponseEntity getAllRates(){
         Iterable<Rate> rates = rateRepository.findAll();
@@ -51,7 +48,7 @@ public class RateController {
 
 
     @DeleteMapping("/rates/{id}")
-    public ResponseEntity deleteSubscriberById(@PathVariable long id){
+    public ResponseEntity deleteRateById(@PathVariable long id){
         Optional<Rate> rate = rateRepository.findById(id);
         if (rate.isPresent()) {
             rateRepository.deleteById(id);

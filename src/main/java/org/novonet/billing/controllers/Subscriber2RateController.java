@@ -2,6 +2,8 @@ package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Subscriber2Rate;
 import org.novonet.billing.models.Subscriber2RateId;
+import org.novonet.billing.repo.RateRepository;
+import org.novonet.billing.repo.ServiceRepository;
 import org.novonet.billing.repo.Subscriber2RateRepository;
 import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,12 @@ import java.util.Optional;
 public class Subscriber2RateController {
     @Autowired
     private Subscriber2RateRepository subscriber2RateRepository;
+
+    @Autowired
     private SubscriberRepository subscriberRepository;
+
+    @Autowired
+    private RateRepository rateRepository;
 
 //    @GetMapping("/subscriber2rates/{subscriberId}")
 //    private ResponseEntity getSubscriber2Rates(@PathVariable long subscriberId){
@@ -44,9 +51,14 @@ public class Subscriber2RateController {
     private ResponseEntity addNewRate(@RequestParam long subscriberId,
                                       @RequestParam long rateId){
         try {
-            Subscriber2RateId subscriber2RateId = new Subscriber2RateId(
-                    subscriberId, rateId
-            );
+            if (
+                    subscriberRepository.findById(subscriberId).isEmpty() &&
+                    rateRepository.findById(rateId).isEmpty()
+            ){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Subscriber or rate is not exist");
+            }
+
+            Subscriber2RateId subscriber2RateId = new Subscriber2RateId(subscriberId, rateId);
             Subscriber2Rate subscriber2Rate = new Subscriber2Rate();
             subscriber2RateRepository.save(subscriber2Rate);
             return ResponseEntity.status(HttpStatus.OK).body(subscriber2Rate
