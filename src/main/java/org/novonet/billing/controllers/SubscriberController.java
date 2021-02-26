@@ -1,6 +1,5 @@
 package org.novonet.billing.controllers;
 
-import org.novonet.billing.models.Application;
 import org.novonet.billing.models.Subscriber;
 import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +48,6 @@ public class SubscriberController {
             ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
         }
-
-
     }
 
     @RequestMapping(path = "/subscribers/{id}",method = RequestMethod.DELETE)
@@ -62,6 +59,4 @@ public class SubscriberController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
     }
-
-
 }

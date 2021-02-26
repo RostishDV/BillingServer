@@ -1,9 +1,7 @@
 package org.novonet.billing.controllers;
 
-import org.novonet.billing.models.Application;
 import org.novonet.billing.models.Debit;
 import org.novonet.billing.models.Subscriber;
-import org.novonet.billing.repo.ApplicationRepository;
 import org.novonet.billing.repo.DebitRepository;
 import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;

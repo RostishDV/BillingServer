@@ -3,7 +3,6 @@ package org.novonet.billing.controllers;
 import org.novonet.billing.models.Subscriber2Rate;
 import org.novonet.billing.models.Subscriber2RateId;
 import org.novonet.billing.repo.RateRepository;
-import org.novonet.billing.repo.ServiceRepository;
 import org.novonet.billing.repo.Subscriber2RateRepository;
 import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
