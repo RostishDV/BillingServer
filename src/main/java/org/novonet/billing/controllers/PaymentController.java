@@ -37,7 +37,7 @@ public class PaymentController {
 
     @PostMapping("/payments/")
     private ResponseEntity addNewApplication(@RequestParam long subscriberId,
-                                             @RequestParam double debitedMoney
+                                             @RequestParam double receivedMoney
     ){
         try {
             Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriberId);
@@ -45,7 +45,7 @@ public class PaymentController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user not found");
             }
             Subscriber subscriber = optionalSubscriber.get();
-            Payment payment = new Payment(subscriberId, debitedMoney, subscriber.getBalance());
+            Payment payment = new Payment(subscriberId, receivedMoney, subscriber.getBalance());
             subscriber.addPayment(payment);
             subscriberRepository.save(subscriber);
             return ResponseEntity.status(HttpStatus.OK).body(payment.getId());

@@ -17,6 +17,13 @@ public class Subscriber2Rate {
     @Column(name = "subscription_date")
     private Date subscriptionDate;
 
+    public Subscriber2Rate(Subscriber2RateId subscriber2RateId) {
+        this.subscriber2RateId = subscriber2RateId;
+    }
+
+    public Subscriber2Rate() {
+    }
+
     public Subscriber2RateId getSubscriber2RateId() {
         return subscriber2RateId;
     }

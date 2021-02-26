@@ -159,14 +159,6 @@ public class Subscriber {
         this.balance = balance;
     }
 
-    public List<Rate> getRate() {
-        return rates;
-    }
-
-    public void setRate(List<Rate> rates) {
-        this.rates = rates;
-    }
-
     public List<Service> getServices() {
         return services;
     }
@@ -204,10 +196,12 @@ public class Subscriber {
     }
 
     public void addDebit(Debit debit){
+        balance -= debit.getDebitedMoney();
         debits.add(debit);
     }
 
     public void removeDebit(Debit debit){
+        balance += debit.getDebitedMoney();
         debits.remove(debit);
     }
 
@@ -220,10 +214,12 @@ public class Subscriber {
     }
 
     public void addPayment(Payment payment){
+        balance += payment.getReceivedMoney();
         payments.add(payment);
     }
 
     public void removePayment(Payment payment){
+        balance -= payment.getReceivedMoney();
         payments.remove(payment);
     }
 

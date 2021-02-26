@@ -24,6 +24,9 @@ public class Subscriber2Service {
     @Column(name = "subscription_date")
     private Date subscriptionDate;
 
+    public Subscriber2Service() {
+    }
+
     public Subscriber2Service(Subscriber2ServiceId subscriber2ServiceId) {
         this.subscriber2serviceId = subscriber2ServiceId;
     }

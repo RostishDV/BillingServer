@@ -53,12 +53,12 @@ public class Subscriber2ServiceController {
     private ResponseEntity addNewService(@RequestParam long subscriberId,
                                       @RequestParam long serviceId){
         try {
-            if (
-                    subscriberRepository.findById(subscriberId).isEmpty() &&
-                            serviceRepository.findById(serviceId).isEmpty()
-            ) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("subscriber or service is not exist");
-            }
+//            if (
+//                    subscriberRepository.findById(subscriberId).isEmpty() &&
+//                            serviceRepository.findById(serviceId).isEmpty()
+//            ) {
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("subscriber or service is not exist");
+//            }
 
             Subscriber2ServiceId subscriber2ServiceId = new Subscriber2ServiceId(
                     subscriberId, serviceId
