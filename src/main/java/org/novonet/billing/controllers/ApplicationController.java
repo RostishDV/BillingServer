@@ -21,13 +21,13 @@ public class ApplicationController {
     private SubscriberRepository subscriberRepository;
 
     @GetMapping("/applications/")
-    private ResponseEntity getAllSubscribers(){
+    public ResponseEntity getAllApplications(){
         Iterable<Application> applications = applicationRepository.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(applications);
     }
 
     @GetMapping("/applications/{id}")
-    private  ResponseEntity getSubscriberById(@PathVariable long id){
+    public  ResponseEntity getApplicationById(@PathVariable long id){
         Optional<Application> application = applicationRepository.findById(id);
         if (application.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(application);
@@ -36,7 +36,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/applications/")
-    private ResponseEntity addNewApplication(@RequestParam long subscriberId,
+    public ResponseEntity addNewApplication(@RequestParam long subscriberId,
                                              @RequestParam String status,
                                              @RequestParam String title,
                                              @RequestParam String description

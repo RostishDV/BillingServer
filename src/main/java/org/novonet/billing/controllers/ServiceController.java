@@ -31,7 +31,6 @@ public class ServiceController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
     }
 
-    //todo: rework this part to chek already existed services
     @PostMapping("/services/")
     private ResponseEntity addNewRate(@RequestParam String name,
                                       @RequestParam Double price){

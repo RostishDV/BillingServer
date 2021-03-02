@@ -16,7 +16,11 @@ public class AutoAddDebitService {
     @Autowired
     private DebitRepository debitRepository;
 
-    @Scheduled(cron = "0 1 * * ?")
+
+//    todo: uncomment in testing
+    @Scheduled(cron = "1 0 * * ?")
+//    todo: uncomment in production
+//    @Scheduled(cron = "0 1 * * ?")
     public void addDebits(){
         //todo: write something to work like
         // SELECT * FROM debits ORDER BY debit_date LIMIT 1 GROUP BY subscriberId
