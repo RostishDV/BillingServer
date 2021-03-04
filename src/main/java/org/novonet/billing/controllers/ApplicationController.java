@@ -1,66 +1,40 @@
 package org.novonet.billing.controllers;
 
 import org.novonet.billing.models.Application;
-import org.novonet.billing.models.Subscriber;
-import org.novonet.billing.repo.ApplicationRepository;
-import org.novonet.billing.repo.SubscriberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.novonet.billing.service.ApplicationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/applications")
-public class ApplicationController {
-    @Autowired
-    private ApplicationRepository applicationRepository;
+public class ApplicationController extends AbstractController<Application, ApplicationService> {
 
-    @Autowired
-    private SubscriberRepository subscriberRepository;
-
-    @GetMapping("/applications/")
-    public ResponseEntity getAllApplications(){
-        Iterable<Application> applications = applicationRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(applications);
+    public ApplicationController(ApplicationService service) {
+        super(service);
     }
 
-    @GetMapping("/applications/{id}")
-    public  ResponseEntity getApplicationById(@PathVariable long id){
-        Optional<Application> application = applicationRepository.findById(id);
-        if (application.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(application);
+    @PostMapping
+    public ResponseEntity save(@RequestParam long subscriberId, @RequestParam String status,
+                               @RequestParam String title, @RequestParam String description) {
+        if (status == null || status == ""){
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("status mast be not empty");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
-    }
-
-    @PostMapping("/applications/")
-    public ResponseEntity addNewApplication(@RequestParam long subscriberId,
-                                             @RequestParam String status,
-                                             @RequestParam String title,
-                                             @RequestParam String description
-    ){
-        Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriberId);
-        if (optionalSubscriber.isPresent()){
-            Subscriber subscriber = optionalSubscriber.get();
-            Application application = new Application(subscriberId, status,
-                    title, description);
-            subscriber.addApplication(application);
-            subscriberRepository.save(subscriber);
-            return ResponseEntity.status(HttpStatus.OK).body(application.getId());
+        if (title == null || title == ""){
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("title mast be not empty");
         }
-        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
-    }
-
-    @DeleteMapping("/applications/{id}")
-    public ResponseEntity deleteApplicationById(@PathVariable long id){
-        Optional<Application> application = applicationRepository.findById(id);
-        if (application.isPresent()) {
-            applicationRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(application);
+        if (description == null || description == ""){
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("title mast be not empty");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
+        Application application = new Application();
+        application.setSubscriberId(subscriberId);
+        application.setStatus(status);
+        application.setTitle(title);
+        application.setDescription(description);
+        getService().save(application);
+        return ResponseEntity.status(HttpStatus.OK).body(application);
     }
 }

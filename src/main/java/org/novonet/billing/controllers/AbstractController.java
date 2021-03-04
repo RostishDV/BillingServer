@@ -20,17 +20,6 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Com
     }
 
     @Override
-    public ResponseEntity save(@RequestBody E entity) {
-        E createdEntity;
-        try {
-            createdEntity = service.save(entity);
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("sorry something went wrong");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(createdEntity);
-    }
-
-    @Override
     public ResponseEntity findAll() {
         Iterable<E> entities = service.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(entities);
@@ -62,5 +51,9 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Com
     public ResponseEntity delete(E entity) {
         service.delete(entity);
         return ResponseEntity.status(HttpStatus.OK).body(entity);
+    }
+
+    public S getService() {
+        return service;
     }
 }
