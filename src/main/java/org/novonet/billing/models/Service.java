@@ -5,12 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "services")
-public class Service {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Service extends AbstractEntity{
     @Column(length = 50)
     private String name;
 
@@ -29,14 +24,6 @@ public class Service {
     public Service(String name, double price) {
         this.name = name;
         this.price = price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

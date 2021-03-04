@@ -4,13 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "payment")
-public class Payment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+@Table(name = "payments")
+public class Payment extends AbstractEntity{
     @Column(name = "subscriber_id")
     private long subscriberId;
 
@@ -35,14 +30,6 @@ public class Payment {
         this.receivedMoney = receivedMoney;
         this.previousBalance = previousBalance;
         paymentDate = new Date();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public long getSubscriberId() {

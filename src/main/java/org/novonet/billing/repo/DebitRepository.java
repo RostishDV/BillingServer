@@ -8,11 +8,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DebitRepository extends CrudRepository<Debit, Long> {
+public interface DebitRepository extends CommonRepository<Debit> {
 
-    //todo: write this query
-    @Query(value = "SELECT d FROM debits d " +
-            "INNER JOIN subscribers s ON d.subscriber_id = s.id",
-            nativeQuery = true)
-    Iterable<Debit> findLatestDebitForEachSubscriber(Sort sort);
+//    //todo: write this query
+//    @Query(value = "SELECT d FROM debits d " +
+//            "INNER JOIN subscribers s ON d.subscriber_id = s.id",
+//            nativeQuery = true)
+//    Iterable<Debit> findLatestDebitForEachSubscriber(Sort sort);
 }

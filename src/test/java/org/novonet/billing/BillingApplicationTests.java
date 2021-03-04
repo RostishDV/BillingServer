@@ -3,7 +3,7 @@ package org.novonet.billing;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@MockMvcTest
+@SpringBootTest
 class BillingApplicationTests {
 
 	@Test

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface RateRepository extends CrudRepository<Rate, Long> {
+public interface RateRepository extends CommonRepository<Rate> {
 
     Optional<Rate> findByName(String name);
 }

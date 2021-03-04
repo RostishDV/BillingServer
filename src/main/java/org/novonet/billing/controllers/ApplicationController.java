@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/applications")
 public class ApplicationController {
     @Autowired
     private ApplicationRepository applicationRepository;

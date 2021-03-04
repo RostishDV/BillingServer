@@ -6,11 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "applications")
-public class Application {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Application extends AbstractEntity{
     @Column(name = "subscriber_id")
     private long subscriberId;
 
@@ -30,6 +26,7 @@ public class Application {
     private Subscriber subscriber;
 
     public Application() {
+        publicationDate = new Date();
     }
 
     public Application(long subscriberId, String status, String title, String description) {
@@ -46,14 +43,6 @@ public class Application {
 
     public void setSubscriberId(long subscriberId) {
         this.subscriberId = subscriberId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getStatus() {
@@ -96,20 +85,20 @@ public class Application {
         this.subscriber = subscriber;
     }
 
-    @Override
-    public int hashCode() {
-        return Long.hashCode(id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj){
-            return true;
-        }
-        if (!(obj instanceof Application)){
-            return false;
-        }
-        Application other = (Application) obj;
-        return this.id.equals(other.id);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Long.hashCode(getId());
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj){
+//            return true;
+//        }
+//        if (!(obj instanceof Application)){
+//            return false;
+//        }
+//        Application other = (Application) obj;
+//        return getId().equals(other.getId());
+//    }
 }

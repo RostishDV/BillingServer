@@ -5,12 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "rates")
-public class Rate {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Rate extends AbstractEntity{
     @Column(length = 50)
     private String name;
 
@@ -22,14 +17,6 @@ public class Rate {
             inverseJoinColumns = {@JoinColumn(name = "subscriber_id")}
     )
     private List<Subscriber> subscribers;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

@@ -5,11 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "subscribers")
-public class Subscriber {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Subscriber extends AbstractEntity{
 
     @Column(length = 30)
     private String surname, name, patronymic;
@@ -44,13 +40,13 @@ public class Subscriber {
     )
     private List<Service> services;
 
-    @OneToMany(mappedBy = "subscriberId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Application> applications;
 
-    @OneToMany(mappedBy = "subscriberId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Debit> debits;
 
-    @OneToMany(mappedBy = "subscriberId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Payment> payments;
 
 
@@ -69,14 +65,6 @@ public class Subscriber {
         this.apartment = apartment;
         this.phone = phone;
         balance = 0.;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSurname() {

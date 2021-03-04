@@ -5,11 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "debits")
-public class Debit {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Debit extends AbstractEntity{
 
     @Column(name = "subscriber_id")
     private long subscriberId;
@@ -35,14 +31,6 @@ public class Debit {
         this.debitedMoney = debitedMoney;
         this.previousBalance = previousBalance;
         debitDate = new Date();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public long getSubscriberId() {

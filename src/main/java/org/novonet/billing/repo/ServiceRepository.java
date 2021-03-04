@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ServiceRepository extends CrudRepository<Service, Long> {
+public interface ServiceRepository extends CommonRepository<Service> {
     Optional<Service> findByName(String name);
 }

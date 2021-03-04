@@ -19,9 +19,11 @@ public class Subscriber2Rate {
 
     public Subscriber2Rate(Subscriber2RateId subscriber2RateId) {
         this.subscriber2RateId = subscriber2RateId;
+        subscriptionDate = new Date();
     }
 
     public Subscriber2Rate() {
+        subscriptionDate = new Date();
     }
 
     public Subscriber2RateId getSubscriber2RateId() {
