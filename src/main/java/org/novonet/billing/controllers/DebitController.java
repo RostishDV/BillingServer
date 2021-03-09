@@ -4,6 +4,8 @@ import org.novonet.billing.models.Debit;
 import org.novonet.billing.models.Subscriber;
 import org.novonet.billing.repo.DebitRepository;
 import org.novonet.billing.repo.SubscriberRepository;
+import org.novonet.billing.service.DebitService;
+import org.novonet.billing.service.SubscriberNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,53 +15,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-public class DebitController {
-    @Autowired
-    private DebitRepository debitRepository;
+public class DebitController extends AbstractController<Debit, DebitService> {
 
-    @Autowired
-    private SubscriberRepository subscriberRepository;
-
-    @GetMapping("/debits/")
-    private ResponseEntity getAllSubscribers(){
-        Iterable<Debit> debits = debitRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(debits);
-    }
-
-    @GetMapping("/debits/{id}")
-    private  ResponseEntity getSubscriberById(@PathVariable long id){
-        Optional<Debit> debit = debitRepository.findById(id);
-        if (debit.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(debit);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
+    public DebitController(DebitService service) {
+        super(service);
     }
 
     @PostMapping("/debits/")
     private ResponseEntity addNewDebit(@RequestParam long subscriberId,
                                              @RequestParam double debitedMoney
     ){
-        Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriberId);
-        if (optionalSubscriber.isPresent()){
-            Subscriber subscriber = optionalSubscriber.get();
-            Debit debit = new Debit(subscriber.getId(), debitedMoney, subscriber.getBalance());
-            subscriber.setBalance(subscriber.getBalance() - debitedMoney);
-            subscriber.addDebit(debit);
-            subscriberRepository.save(subscriber);
+        Debit debit = new Debit();
+        debit.setSubscriberId(subscriberId);
+        debit.setDebitedMoney(debitedMoney);
+        try {
+            getService().save(debit);
             return ResponseEntity.status(HttpStatus.OK).body(debit);
+        } catch (SubscriberNotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(e.getMessage());
         }
-        else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(subscriberId);
-        }
-    }
-
-    @DeleteMapping("/debits/{id}")
-    public ResponseEntity deleteApplicationById(@PathVariable long id){
-        Optional<Debit> debit = debitRepository.findById(id);
-        if (debit.isPresent()) {
-            debitRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(debit);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
     }
 }
