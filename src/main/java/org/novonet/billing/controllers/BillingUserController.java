@@ -17,7 +17,7 @@ public class BillingUserController extends AbstractController<BillingUser, Billi
         super(service);
     }
 
-    @PostMapping()
+    @PostMapping
     private ResponseEntity addNewBillingUser(@RequestParam String name,
                                       @RequestParam String password,
                                       @RequestParam String privilege){

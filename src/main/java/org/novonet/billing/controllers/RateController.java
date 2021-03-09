@@ -17,14 +17,14 @@ public class RateController extends AbstractController<Rate, RateService> {
         super(service);
     }
 
+    @PostMapping
     private ResponseEntity addNewRate(@RequestParam String name,
                                       @RequestParam double price){
         Rate rate = new Rate();
         rate.setName(name);
         rate.setPrice(price);
         try {
-            getService().save(rate);
-            return ResponseEntity.status(HttpStatus.OK).body(rate.getId());
+            return ResponseEntity.status(HttpStatus.OK).body(getService().save(rate));
         } catch (Exception ex){
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(ex.getStackTrace());
         }
