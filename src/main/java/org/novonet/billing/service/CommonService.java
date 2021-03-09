@@ -6,8 +6,6 @@ import java.util.Optional;
 
 public interface CommonService<E extends AbstractEntity> {
 
-    E save(E entity);
-
     Optional<E> findById(Long id);
 
     Iterable<E> findAll();

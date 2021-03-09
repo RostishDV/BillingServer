@@ -13,4 +13,8 @@ public class ApplicationService extends
     public ApplicationService(ApplicationRepository repository) {
         super(repository);
     }
+
+    public Application save(Application application){
+        return repository.save(application);
+    }
 }
