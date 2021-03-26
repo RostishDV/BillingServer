@@ -11,12 +11,11 @@ public class Service extends AbstractEntity{
 
     private double price;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "subscribers_to_services",
-            joinColumns = {@JoinColumn(name = "service_id")},
-            inverseJoinColumns = {@JoinColumn(name = "subscriber_id")}
-    )
-    private List<Rate> rates;
+    @ManyToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "services")
+    private List<Subscriber> subscribers;
 
     public Service() {
     }

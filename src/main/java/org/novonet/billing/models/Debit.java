@@ -20,7 +20,7 @@ public class Debit extends AbstractEntity{
     private Date debitDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "subscriber_id", insertable = false, updatable = false)
+    @JoinColumn(name = "subscriber_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Subscriber subscriber;
 
     public Debit() {

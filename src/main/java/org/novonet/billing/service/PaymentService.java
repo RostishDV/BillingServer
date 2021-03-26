@@ -5,9 +5,11 @@ import org.novonet.billing.models.Subscriber;
 import org.novonet.billing.repo.PaymentRepository;
 import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class PaymentService extends AbstractService<Payment, PaymentRepository> {
     @Autowired
     private SubscriberRepository subscriberRepository;

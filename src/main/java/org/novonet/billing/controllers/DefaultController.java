@@ -23,19 +23,19 @@ public class DefaultController {
         model.addAttribute("name", name);
         return "greeting";
     }
-
-    @PostMapping("/registration")
-    public ResponseEntity addUser(@RequestParam String username,
-                                  @RequestParam String password){
-        BillingUser user = billingUserRepository.findByUsername(username);
-        if (user != null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Already exist");
-        }
-        user = new BillingUser();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setRoles(Collections.singleton(Role.USER));
-        billingUserRepository.save(user);
-        return ResponseEntity.status(HttpStatus.OK).body("successfully register " + username);
-    }
+//
+//    @PostMapping("/registration")
+//    public ResponseEntity addUser(@RequestParam String username,
+//                                  @RequestParam String password){
+//        BillingUser user = billingUserRepository.findByUsername(username);
+//        if (user != null) {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Already exist");
+//        }
+//        user = new BillingUser();
+//        user.setUsername(username);
+//        user.setPassword(password);
+//        user.setRoles(Collections.singleton(Role.USER));
+//        billingUserRepository.save(user);
+//        return ResponseEntity.status(HttpStatus.OK).body("successfully register " + username);
+//    }
 }

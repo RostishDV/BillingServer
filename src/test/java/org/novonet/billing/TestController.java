@@ -9,7 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
-@AutoConfigureMockMvc
+//@AutoConfigureMockMvc
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MockMvcTest {
+public @interface TestController {
 }

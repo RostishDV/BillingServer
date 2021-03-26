@@ -1,11 +1,12 @@
 package org.novonet.billing.service;
 
-import org.novonet.billing.controllers.AbstractController;
 import org.novonet.billing.models.BillingUser;
 import org.novonet.billing.repo.BillingUserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BillingUserService extends AbstractService<BillingUser, BillingUserRepository> {
-    protected BillingUserService(BillingUserRepository service) {
+    public BillingUserService(BillingUserRepository service) {
         super(service);
     }
 

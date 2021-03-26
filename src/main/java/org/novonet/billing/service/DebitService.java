@@ -5,10 +5,12 @@ import org.novonet.billing.models.Subscriber;
 import org.novonet.billing.repo.DebitRepository;
 import org.novonet.billing.repo.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Optional;
 
+@Service
 public class DebitService extends AbstractService<Debit, DebitRepository> {
     @Autowired
     private SubscriberRepository subscriberRepository;

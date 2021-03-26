@@ -19,7 +19,7 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Com
     }
 
     @Override
-    public ResponseEntity findAll() {
+    public ResponseEntity<Iterable<E>> findAll() {
         Iterable<E> entities = service.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(entities);
     }
@@ -33,23 +33,32 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Com
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("sorry, something went wrong");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("something went wrong");
         }
     }
 
     @Override
     public ResponseEntity deleteById(Long id) {
-        if(service.findById(id).isPresent()){
+        Optional<E> entity = service.findById(id);
+        if(entity.isPresent()){
             service.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(id);
+            return ResponseEntity.status(HttpStatus.OK).body(entity.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(id);
     }
 
     @Override
-    public ResponseEntity delete(E entity) {
-        service.delete(entity);
-        return ResponseEntity.status(HttpStatus.OK).body(entity);
+    public ResponseEntity<E> delete(E entity) {
+        try {
+            Optional<E> optionalE = service.findById(entity.getId());
+            if (optionalE.isPresent()) {
+                service.delete(entity);
+                return ResponseEntity.status(HttpStatus.OK).body(entity);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(entity);
+        } catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     public S getService() {

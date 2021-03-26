@@ -2,6 +2,7 @@ package org.novonet.billing.models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "subscribers")
@@ -27,26 +28,34 @@ public class Subscriber extends AbstractEntity{
     private Double balance;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "subscribers_to_rates",
-            joinColumns = {@JoinColumn(name = "subscriber_id")},
-            inverseJoinColumns = {@JoinColumn(name = "rate_id")}
+    @JoinTable(
+            name = "subscribers_to_rates",
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "rate_id")
     )
     private List<Rate> rates;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "subscribers_to_services",
-            joinColumns = {@JoinColumn(name = "subscriber_id")},
-            inverseJoinColumns = {@JoinColumn(name = "service_id")}
+    @JoinTable(
+            name = "subscribers_to_services",
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id")
     )
     private List<Service> services;
 
-    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "subscriber", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Application> applications;
 
-    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "subscriber", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Debit> debits;
 
-    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "subscriber", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Payment> payments;
 
 
@@ -54,7 +63,11 @@ public class Subscriber extends AbstractEntity{
     public Subscriber() {
     }
 
-    public Subscriber(String surname, String name, String patronymic, String city, String street, Integer house, Integer building, Integer apartment, Long phone) {
+    public Subscriber(
+            String surname, String name,
+            String patronymic, String city,
+            String street, Integer house,
+            Integer building, Integer apartment, Long phone) {
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;
@@ -219,4 +232,16 @@ public class Subscriber extends AbstractEntity{
         this.payments = payments;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subscriber that = (Subscriber) o;
+        return Objects.equals(surname, that.surname) && Objects.equals(name, that.name) && Objects.equals(patronymic, that.patronymic) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(house, that.house) && Objects.equals(building, that.building) && Objects.equals(apartment, that.apartment) && Objects.equals(phone, that.phone) && Objects.equals(balance, that.balance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(surname, name, patronymic, city, street, house, building, apartment, phone, balance);
+    }
 }

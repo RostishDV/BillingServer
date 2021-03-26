@@ -18,7 +18,7 @@ public class SubscriberController extends AbstractController<Subscriber, Subscri
     }
 
     @PostMapping
-    private ResponseEntity addNewSubscriber(@RequestParam() String surname,
+    public ResponseEntity addNewSubscriber(@RequestParam() String surname,
                                             @RequestParam() String name,
                                             @RequestParam() String patronymic,
                                             @RequestParam() String city,
@@ -31,7 +31,7 @@ public class SubscriberController extends AbstractController<Subscriber, Subscri
             Subscriber subscriber = new Subscriber(surname, name, patronymic, city, street, house, building, apartment, phone);
             getService().save(subscriber);
             return ResponseEntity.status(HttpStatus.OK).body(subscriber);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
         }

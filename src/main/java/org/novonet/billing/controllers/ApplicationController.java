@@ -20,13 +20,13 @@ public class ApplicationController extends AbstractController<Application, Appli
     @PostMapping
     public ResponseEntity save(@RequestParam long subscriberId, @RequestParam String status,
                                @RequestParam String title, @RequestParam String description) {
-        if (status == null || status == ""){
+        if (status == null || status.equals("")){
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("status mast be not empty");
         }
-        if (title == null || title == ""){
+        if (title == null || title.equals("")){
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("title mast be not empty");
         }
-        if (description == null || description == ""){
+        if (description == null || description.equals("")){
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("title mast be not empty");
         }
         Application application = new Application();
