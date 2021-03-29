@@ -2,6 +2,7 @@ package org.novonet.billing.models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "services")
@@ -39,5 +40,18 @@ public class Service extends AbstractEntity{
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Service service = (Service) o;
+        return Double.compare(service.price, price) == 0 && Objects.equals(name, service.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, price);
     }
 }

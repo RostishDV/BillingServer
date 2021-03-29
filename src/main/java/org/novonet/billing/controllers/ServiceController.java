@@ -15,15 +15,15 @@ public class ServiceController extends AbstractController<Service, ServiceServic
     }
 
     @PostMapping
-    private ResponseEntity addNewRate(@RequestParam String name,
-                                      @RequestParam Double price){
+    public ResponseEntity addNewService(@RequestParam String name,
+                                        @RequestParam Double price){
         Service service = new Service();
         service.setName(name);
         service.setPrice(price);
         try {
             return ResponseEntity.status(HttpStatus.OK).body(getService().save(service));
         } catch (Exception ex){
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(ex.getStackTrace());
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(name);
         }
     }
 }
