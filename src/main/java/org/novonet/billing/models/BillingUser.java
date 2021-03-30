@@ -1,6 +1,7 @@
 package org.novonet.billing.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "billing_users")
@@ -33,5 +34,18 @@ public class BillingUser extends AbstractEntity{
 
     public void setPrivilege(String privilege) {
         this.privilege = privilege;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BillingUser that = (BillingUser) o;
+        return Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(privilege, that.privilege);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, password, privilege);
     }
 }

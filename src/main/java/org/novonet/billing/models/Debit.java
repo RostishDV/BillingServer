@@ -2,6 +2,7 @@ package org.novonet.billing.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "debits")
@@ -18,6 +19,9 @@ public class Debit extends AbstractEntity{
 
     @Column(name = "debit_date")
     private Date debitDate;
+
+    @Column
+    private String reason;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "subscriber_id", referencedColumnName = "id", insertable = false, updatable = false)
@@ -71,5 +75,26 @@ public class Debit extends AbstractEntity{
 
     public void setSubscriber(Subscriber subscriber) {
         this.subscriber = subscriber;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Debit debit = (Debit) o;
+        return subscriberId == debit.subscriberId && Double.compare(debit.debitedMoney, debitedMoney) == 0 && Double.compare(debit.previousBalance, previousBalance) == 0 && Objects.equals(debitDate, debit.debitDate) && Objects.equals(reason, debit.reason);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subscriberId, debitedMoney, previousBalance, debitDate, reason);
     }
 }

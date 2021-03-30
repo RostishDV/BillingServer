@@ -19,18 +19,20 @@ public class DebitController extends AbstractController<Debit, DebitService> {
     }
 
     @PostMapping
-    private ResponseEntity addNewDebit(@RequestParam long subscriberId,
-                                             @RequestParam double debitedMoney
+    public ResponseEntity addNewDebit(@RequestParam long subscriberId,
+                                      @RequestParam double debitedMoney,
+                                      @RequestParam String reason
     ){
         Debit debit = new Debit();
         debit.setSubscriberId(subscriberId);
         debit.setDebitedMoney(debitedMoney);
+        debit.setReason(reason);
         try {
             getService().save(debit);
             return ResponseEntity.status(HttpStatus.OK).body(debit);
         } catch (SubscriberNotFoundException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(subscriberId);
         }
     }
 }

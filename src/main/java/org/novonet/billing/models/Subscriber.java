@@ -1,8 +1,7 @@
 package org.novonet.billing.models;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "subscribers")
@@ -61,6 +60,11 @@ public class Subscriber extends AbstractEntity{
 
 
     public Subscriber() {
+        rates = new ArrayList<>();
+        services = new ArrayList<>();
+        applications = new ArrayList<>();
+        debits = new ArrayList<>();
+        payments = new ArrayList<>();
     }
 
     public Subscriber(
@@ -78,6 +82,11 @@ public class Subscriber extends AbstractEntity{
         this.apartment = apartment;
         this.phone = phone;
         balance = 0.;
+        rates = new ArrayList<>();
+        services = new ArrayList<>();
+        applications = new ArrayList<>();
+        debits = new ArrayList<>();
+        payments = new ArrayList<>();
     }
 
     public String getSurname() {

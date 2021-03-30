@@ -42,7 +42,7 @@ public class SubscriberControllerTests {
     }
 
     @Test
-    @DisplayName("создание нового пользователя")
+    @DisplayName("создание нового клиента")
     public void createNewSubscriberTest(){
         ResponseEntity responseEntity = subscriberController.addNewSubscriber(
                 "Фамилия", "Имя", "Отчество",
@@ -54,7 +54,7 @@ public class SubscriberControllerTests {
     }
 
     @Test
-    @DisplayName("попытка получения существующего пользователя")
+    @DisplayName("попытка получения существующего клиента")
     public void findByExistedId(){
         ResponseEntity responseEntity = subscriberController.findById((long) 2);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
@@ -62,7 +62,7 @@ public class SubscriberControllerTests {
     }
 
     @Test
-    @DisplayName("попытка получения не существующего пользователя")
+    @DisplayName("попытка получения не существующего клиента")
     public void findByNonExistedId(){
         ResponseEntity responseEntity = subscriberController.findById((long) 100);
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
@@ -70,7 +70,7 @@ public class SubscriberControllerTests {
     }
 
     @Test
-    @DisplayName("проверка получения всех пользователей")
+    @DisplayName("проверка получения всех клиетнов")
     public void findAllTest(){
         ResponseEntity responseEntity = subscriberController.findAll();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
@@ -78,7 +78,7 @@ public class SubscriberControllerTests {
     }
 
     @Test
-    @DisplayName("удаление существующего пользователя")
+    @DisplayName("удаление существующего клиента")
     public void deleteByExistedId(){
         ResponseEntity responseEntity = subscriberController.deleteById((long) 1);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
@@ -87,7 +87,7 @@ public class SubscriberControllerTests {
     }
 
     @Test
-    @DisplayName("попытка удаления несуществующего пользователя")
+    @DisplayName("попытка удаления несуществующего клиента")
     public void deleteNotExistedById(){
         ResponseEntity responseEntity = subscriberController.deleteById((long) 10);
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());

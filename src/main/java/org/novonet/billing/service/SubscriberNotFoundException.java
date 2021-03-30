@@ -1,7 +1,7 @@
 package org.novonet.billing.service;
 
-public class SubscriberNotFoundException extends Exception {
+public class SubscriberNotFoundException extends Exception{
     public SubscriberNotFoundException(Long id){
-        super("Subscriber with id " + id + " not found");
+        super("Subscriber with ID = " + id + " not found");
     }
 }
